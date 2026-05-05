@@ -10,12 +10,13 @@ FROM planets
 WHERE num_of_moons = 0
 """, conn1)
 
+
 df_name_seven = pd.read_sql("""
 SELECT name, mass
 FROM planets
 WHERE LENGTH(name) = 7
-ORDER BY name
 """, conn1)
+
 
 df_mass = pd.read_sql("""
 SELECT name, mass
@@ -54,6 +55,7 @@ WHERE hungry = 1
 ORDER BY name ASC
 """, conn2)
 
+
 df_4_oldest = pd.read_sql("""
 SELECT name, age, breed
 FROM dogs
@@ -61,7 +63,7 @@ ORDER BY age DESC
 LIMIT 4
 """, conn2)
 
-df_4_oldest = df_4_oldest.sort_values("breed").reset_index(drop=True)
+df_4_oldest = df_4_oldest.sort_values("name").reset_index(drop=True)
 
 # ---------------- Part 3: Babe Ruth ----------------
 conn3 = sqlite3.connect('babe_ruth.db')
