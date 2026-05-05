@@ -1,8 +1,8 @@
 import pandas as pd
 import sqlite3
 
-# ---------------- Part 1: Planets ----------------
-conn1 = sqlite3.connect('planets.db')
+
+conn1 = sqlite3.connect("planets.db")
 
 df_no_moons = pd.read_sql("""
 SELECT *
@@ -16,7 +16,6 @@ SELECT name, mass
 FROM planets
 WHERE LENGTH(name) = 7
 """, conn1)
-
 
 df_mass = pd.read_sql("""
 SELECT name, mass
@@ -37,8 +36,11 @@ FROM planets
 WHERE color LIKE '%blue%'
 """, conn1)
 
-# ---------------- Part 2: Dogs ----------------
-conn2 = sqlite3.connect('dogs.db')
+conn1.close()
+
+
+
+conn2 = sqlite3.connect("dogs.db")
 
 df_hungry = pd.read_sql("""
 SELECT name, age, breed
@@ -56,7 +58,6 @@ ORDER BY name ASC
 """, conn2)
 
 
-
 df_4_oldest = pd.read_sql("""
 SELECT name, age, breed
 FROM dogs
@@ -64,16 +65,17 @@ ORDER BY age DESC
 LIMIT 4
 """, conn2)
 
+conn2.close()
 
-df_4_oldest = df_4_oldest.sort_values("name").reset_index(drop=True)
 
-# ---------------- Part 3: Babe Ruth ----------------
-conn3 = sqlite3.connect('babe_ruth.db')
+
+conn3 = sqlite3.connect("babe_ruth.db")
 
 df_ruth_years = pd.read_sql("""
 SELECT COUNT(DISTINCT year) AS total_years
 FROM babe_ruth_stats
 """, conn3)
+
 
 df_hr_total = pd.read_sql("""
 SELECT SUM(HR) AS total_home_runs
@@ -95,6 +97,4 @@ GROUP BY team
 HAVING AVG(at_bats) > 200
 """, conn3)
 
-conn1.close()
-conn2.close()
 conn3.close()
